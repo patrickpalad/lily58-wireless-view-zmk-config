@@ -9,6 +9,27 @@
 #include <dt-bindings/zmk/keys.h>
 
 / {
+    macros {
+        clear_current_bt: clear_current_bt {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&bt BT_CLR>;
+            label = "CLEAR_CURRENT_BT";
+        };
+    };
+
+    behaviors {
+        macro_tap: macro_tap {
+            compatible = "zmk,behavior-hold-tap";
+            label = "MACRO_TAP";
+            bindings = <&clear_current_bt>, <&bt>;
+
+            #binding-cells = <2>;
+            flavor = "tap-preferred";
+            tapping-term-ms = <2000>;
+        };
+    };
+
     keymap {
         compatible = "zmk,keymap";
 
@@ -42,11 +63,11 @@
 
             display-name = "Lower";
             bindings = <
-&kp ESCAPE  &kp F1    &kp F2         &kp F3                &kp F4                 &kp F5                               &kp F6  &kp F7          &kp F8        &kp F9     &kp F10        &kp F11
-&trans      &kp F2    &kp BACKSLASH  &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &none                                &none   &kp HOME        &kp UP_ARROW  &kp END    &kp PAGE_UP    &kp F12
-&trans      &kp EXCL  &kp SLASH      &kp ASTRK             &kp EQUAL              &kp MINUS                            &none   &kp LEFT_ARROW  &kp DOWN      &kp RIGHT  &kp PAGE_DOWN  &kp TILDE
-&trans      &trans    &trans         &trans                &trans                 &trans     &bt BT_PRV    &bt BT_NXT  &trans  &kp MINUS       &kp KP_PLUS   &kp LBRC   &kp RBRC       &kp PIPE
-                                     &trans                &trans                 &trans     &trans        &trans      &trans  &trans          &trans
+&kp ESCAPE  &kp F1    &kp F2         &kp F3                &kp F4                 &kp F5                       &kp F6      &kp F7          &kp F8        &kp F9     &kp F10        &kp F11
+&trans      &kp F2    &kp BACKSLASH  &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &none                        &bt BT_PRV  &kp HOME        &kp UP_ARROW  &kp END    &kp PAGE_UP    &kp F12
+&trans      &kp EXCL  &kp SLASH      &kp ASTRK             &kp EQUAL              &kp MINUS                    &bt BT_NXT  &kp LEFT_ARROW  &kp DOWN      &kp RIGHT  &kp PAGE_DOWN  &kp TILDE
+&trans      &trans    &trans         &trans                &trans                 &trans     &trans    &trans  &trans      &kp MINUS       &kp KP_PLUS   &kp LBRC   &kp RBRC       &kp PIPE
+                                     &trans                &trans                 &trans     &trans    &trans  &trans      &trans          &trans
             >;
 
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
